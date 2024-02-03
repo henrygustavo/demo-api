@@ -1,6 +1,7 @@
 using Endpoints;
 using FastEndpoints;
 using FastEndpoints.Swagger;
+using FastEndpoints.Security;
 
 var bld = WebApplication.CreateBuilder();
 bld.Services.AddCors();
@@ -9,10 +10,15 @@ bld.Services.AddFastEndpoints(
     {
         o.Assemblies = new[] { AssemblyReference.Assembly };
     }
-    ).SwaggerDocument();;
+    ).SwaggerDocument()
+    .AddJWTBearerAuth(Domain.Constants.SigningKey) //add this
+    .AddAuthorization(); //add this
+    ;
 
 var app = bld.Build();
-app.UseFastEndpoints()
+app.UseAuthentication()
+    .UseAuthorization()
+    .UseFastEndpoints()
     .UseSwaggerGen()
     .UseCors();
 app.Run();
