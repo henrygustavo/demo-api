@@ -1,18 +1,14 @@
 using Endpoints.Request;
 using FastEndpoints;
 using FastEndpoints.Security;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.VisualBasic;
 
 namespace Endpoints.API;
 
+[HttpPost("/api/login"), AllowAnonymous]
 public class UserLoginEndpoint : Endpoint<LoginRequest>
 {
-    public override void Configure()
-    {
-        Post("/api/login");
-        AllowAnonymous();
-    }
-
     public override async Task HandleAsync(LoginRequest req, CancellationToken ct)
     {
         if (await CredentialsAreValid(req.Username, req.Password, ct))
