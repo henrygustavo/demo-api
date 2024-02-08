@@ -1,15 +1,15 @@
-using Endpoints.Request;
+using Carter;
 using Endpoints.Response;
-using FastEndpoints;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Routing;
 
 namespace Endpoints.API;
-
-[HttpPost("/api/users")]
-public class UserEndpoint : Endpoint<UserRequest, UserResponse>
+public class UserEndpoint : ICarterModule
 {
-    public override async Task HandleAsync(UserRequest req, CancellationToken ct)
+    public void AddRoutes(IEndpointRouteBuilder app)
     {
-        await SendAsync(new UserResponse($"{req.FirstName} {req.LastName}", req.Age > 18)
-            , cancellation: ct);
+        app.MapGet("/api/users", (string id) => 
+            Results.Ok( new UserResponse("Henry", true)));
     }
 }

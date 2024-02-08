@@ -5,14 +5,14 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
     </PropertyGroup>
-
-    <ItemGroup>
-      <PackageReference Include="FastEndpoints" Version="5.22.0" />
-      <PackageReference Include="FastEndpoints.Security" Version="5.22.0" />
-    </ItemGroup>
-
     <ItemGroup>
       <ProjectReference Include="..\Domain\Domain.csproj" />
+    </ItemGroup>
+    <ItemGroup>
+      <PackageReference Include="Carter" Version="8.0.0" />
+    </ItemGroup>
+    <ItemGroup>
+      <Folder Include="Middleware\" />
     </ItemGroup>
 
 </Project>

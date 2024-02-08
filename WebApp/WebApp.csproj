@@ -5,13 +5,11 @@
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
     </PropertyGroup>
-
-    <ItemGroup>
-      <PackageReference Include="FastEndpoints.Swagger" Version="5.22.0" />
-    </ItemGroup>
-
     <ItemGroup>
       <ProjectReference Include="..\Endpoints\Endpoints.csproj" />
+    </ItemGroup>
+    <ItemGroup>
+      <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
     </ItemGroup>
 
 </Project>

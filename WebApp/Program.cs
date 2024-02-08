@@ -1,33 +1,14 @@
-using Endpoints;
-using Endpoints.Middleware;
-using FastEndpoints;
-using FastEndpoints.Swagger;
-using FastEndpoints.Security;
+using Carter;
 
 var bld = WebApplication.CreateBuilder();
-bld.Services.AddCors();
-bld.Services.AddFastEndpoints(
-    o =>
-    {
-        o.Assemblies = new[] { AssemblyReference.Assembly };
- 
-    }
-    
-    ).SwaggerDocument()
-    .AddJWTBearerAuth(Domain.Constants.SigningKey) //add this
-    .AddAuthorization(); //add this
-    ;
+bld.Services.AddCarter();
+bld.Services.AddEndpointsApiExplorer();
+bld.Services.AddSwaggerGen();
 
 var app = bld.Build();
-app.UseAuthentication()
-    .UseAuthorization()
-    .UseFastEndpoints(c =>
-    {
-        c.Endpoints.Configurator = ep =>
-        {
-            ep.PreProcessor<MyRequestLogger>(Order.Before);
-        };
-    })
-    .UseSwaggerGen()
-    .UseCors();
+
+app.UseSwagger();
+app.UseSwaggerUI();
+app.MapCarter();
+
 app.Run();
